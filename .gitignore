@@ -6,3 +6,4 @@ venv
 *.env
 *.key
 *.pyc
+.ipynb_checkpoints
