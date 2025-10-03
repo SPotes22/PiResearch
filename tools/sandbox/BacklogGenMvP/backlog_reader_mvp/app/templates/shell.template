@@ -1,0 +1,14 @@
+# templates/shell.template  
+#!/bin/bash
+# Backlog Generator - Safe Template
+# Backlog: {id}
+
+echo "🚀 BACKLOG SHELL EJECUTÁNDOSE: {id}"
+echo "========================================"
+echo "QUÉ: {que}"
+echo "POR QUÉ: {por_que}" 
+echo "PARA QUÉ: {para_que}"
+echo "CÓMO: {como}"
+echo "USUARIO: {usuario}"
+echo "FECHA: {timestamp}"
+echo "========================================"

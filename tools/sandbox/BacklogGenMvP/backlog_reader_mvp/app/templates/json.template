@@ -1,0 +1,16 @@
+# templates/json.template
+{{
+    "backlog_derivado": "{id}",
+    "metadata": {{
+        "generado_por": "{usuario}",
+        "timestamp": "{timestamp}",
+        "version": "mvp-1.0"
+    }},
+    "contenido": {{
+        "que": "{que}",
+        "por_que": "{por_que}",
+        "para_que": "{para_que}",
+        "como": "{como}"
+    }},
+    "estado": "generado"
+}}

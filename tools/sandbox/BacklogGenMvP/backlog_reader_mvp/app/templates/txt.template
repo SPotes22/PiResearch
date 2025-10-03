@@ -1,0 +1,21 @@
+# templates/txt.template
+BACKLOG DERIVADO - TIN TAN GENERATOR
+====================================
+ID: {id}
+FECHA: {timestamp} 
+USUARIO: {usuario}
+
+¿QUÉ HACER?
+{que}
+
+¿POR QUÉ?
+{por_que}
+
+¿PARA QUÉ? 
+{para_que}
+
+¿CÓMO?
+{como}
+
+====================================
+✨ Generado automáticamente - De la idea a la acción
