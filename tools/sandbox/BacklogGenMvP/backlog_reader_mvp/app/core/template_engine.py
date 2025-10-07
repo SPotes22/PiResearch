@@ -1,57 +1,59 @@
 # app/core/template_engine.py
+import os
+from pathlib import Path
+
 class SafeTemplateEngine:
-    def __init__(self):
-        self.templates = {
-            'python': self._get_python_template(),
-            'shell': self._get_shell_template(),
-            'json': self._get_json_template(),
-            'txt': self._get_txt_template()
+    def __init__(self, templates_dir="templates"):
+        self.templates_dir = Path(templates_dir)
+        self._loaded_templates = {}
+        self._load_all_templates()
+    
+    def _load_all_templates(self):
+        """Carga todas las templates desde el directorio"""
+        template_files = {
+            'python': 'python.template',
+            'shell': 'shell.template', 
+            'json': 'json.template',
+            'txt': 'txt.template'
         }
-    
-    def _get_python_template(self):
-        """Template Python seguro - SIN VULNERABILIDADES"""
-        return '''#!/usr/bin/env python3
-# Backlog Generator - Safe Template
-# Backlog: {id}
-
-def main():
-    # VARIABLES PRE-DEFINIDAS (SEGURAS)
-    backlog_data = {{
-        "id": "{id}",
-        "que": "{que}",
-        "por_que": "{por_que}", 
-        "para_que": "{para_que}",
-        "como": "{como}",
-        "timestamp": "{timestamp}",
-        "usuario": "{usuario}"
-    }}
-    
-    print("🚀 BACKLOG EJECUTÁNDOSE:")
-    print(f"ID: {{backlog_data['id']}}")
-    print(f"QUÉ: {{backlog_data['que']}}")
-    print(f"POR QUÉ: {{backlog_data['por_que']}}")
-    print(f"PARA QUÉ: {{backlog_data['para_que']}}") 
-    print(f"CÓMO: {{backlog_data['como']}}")
-    print(f"🕐 Generado: {{backlog_data['timestamp']}}")
-
-if __name__ == "__main__":
-    main()
-'''
-    
-    def render_safe(self, template_type, data):
-        """Renderizado seguro con escape de caracteres"""
-        if template_type not in self.templates:
-            raise ValueError(f"Template no encontrado: {template_type}")
         
-        template = self.templates[template_type]
+        for template_type, filename in template_files.items():
+            template_path = self.templates_dir / filename
+            
+            if not template_path.exists():
+                raise FileNotFoundError(f"Template no encontrada: {template_path}")
+            
+            with open(template_path, 'r', encoding='utf-8') as f:
+                self._loaded_templates[template_type] = f.read()
         
-        # Escapar caracteres peligrosos
+        print(f"✅ Templates cargadas: {list(self._loaded_templates.keys())}")
+    
+    def get_template(self, template_type):
+        """Obtiene una template específica"""
+        if template_type not in self._loaded_templates:
+            available = list(self._loaded_templates.keys())
+            raise ValueError(f"Template '{template_type}' no existe. Disponibles: {available}")
+        return self._loaded_templates[template_type]
+    
+    def render(self, template_type, data):
+        """Renderiza una template con datos seguros"""
+        template = self.get_template(template_type)
+        
+        # Limpieza básica de datos para seguridad
         safe_data = {}
         for key, value in data.items():
             if isinstance(value, str):
-                # Escapar comillas y caracteres especiales
-                safe_data[key] = value.replace('"', '\\"').replace("'", "\\'")
+                # Escape básico para diferentes contextos
+                if template_type == 'python':
+                    safe_data[key] = value.replace('"', '\\"').replace("'", "\\'")
+                elif template_type == 'json':
+                    safe_data[key] = value.replace('"', '\\"')
+                else:
+                    safe_data[key] = value
             else:
                 safe_data[key] = value
         
-        return template.format(**safe_data)
+        try:
+            return template.format(**safe_data)
+        except KeyError as e:
+            raise ValueError(f"Falta variable en template: {e}")

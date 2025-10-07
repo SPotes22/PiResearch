@@ -1,0 +1,3 @@
+[submodule "tools/sandbox/BacklogGenMvP/backlog_reader_mvp/repo-scanner"]
+	path = tools/sandbox/BacklogGenMvP/backlog_reader_mvp/repo-scanner
+	url = https://github.com/SPotes22/repo-scanner.git

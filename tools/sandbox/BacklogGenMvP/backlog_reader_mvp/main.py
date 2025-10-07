@@ -10,6 +10,10 @@ from app.ui.text_interface import TextInterface
 from app.core.template_engine import SafeTemplateEngine
 from app.exporters.multi_exporter import MultiExporter
 
+# En main.py
+template_engine = SafeTemplateEngine("templates")  # ← APUNTA AL DIRECTORIO
+exporter = MultiExporter(template_engine)
+
 class BacklogReaderMVP:
     def __init__(self):
         self.loader = SafeFileLoader()
