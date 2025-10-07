@@ -7,3 +7,8 @@ venv
 *.key
 *.pyc
 .ipynb_checkpoints
+*.pkl
+*.csv
+secrets
+secrets/
+

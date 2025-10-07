@@ -1,0 +1,27 @@
+# templates/python.template
+#!/usr/bin/env python3
+# Backlog Generator - Safe Template  
+# Backlog: {id}
+# Usuario: {usuario}
+# Generado: {timestamp}
+
+def main():
+    """Backlog derivado - Ejecución segura"""
+    backlog_data = {
+        "id": "{id}",
+        "que": "{que}",
+        "por_que": "{por_que}",
+        "para_que": "{para_que}", 
+        "como": "{como}",
+        "timestamp": "{timestamp}",
+        "usuario": "{usuario}"
+    }
+    
+    print("🎯 BACKLOG EJECUTÁNDOSE:")
+    print("=" * 40)
+    for key, value in backlog_data.items():
+        print(f"  {key.upper()}: {value}")
+    print("=" * 40)
+
+if __name__ == "__main__":
+    main()
