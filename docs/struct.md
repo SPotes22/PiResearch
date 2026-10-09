@@ -22,6 +22,9 @@ PiTech-research/
 │   ├── api_rpc/               -> Implementación de la "API RPC"
 │   └── docs/              -> Especificaciones técnicas, diagramas
 │
+├── research/              -> Experimentos y afianzamiento de conceptos
+│   └── nn-mnist/          -> Redes neuronales sobre MNIST: sensibilidad a α, ancho y profundidad
+│
 └── tools/
     ├── scanners/ -> Descubrimiento de vulnerabilidades, scripts de auditoría básica. monitoreo perimetral.
     ├── utils/             -> Documentos y scripts de apoyo (loggers, encoders, etc.) 
